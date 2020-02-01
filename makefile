@@ -1,13 +1,20 @@
-all: chess
+TEST_DIR = ./tests
+BUILD_DIR = ./build
 
-chess: chess.o chess_test.o
-	 g++ -o chess chess.o chess_test.o
+OUT = ${BUILD_DIR}/chess
+OBJS = $(addprefix ${BUILD_DIR}/, chess.o chesspieceset.o chess_test.o chesspieceset_test.o)
 
-chess.o: chess.cc
-	 g++ -c chess.cc
+all: chess_test
 
-chesss_test.o: chess_test.cc
-	g++ -c chess_test.cc
-     
+chess_test: build_deps
+	g++ -g -o ${OUT} ${OBJS}
+
+build_deps:
+	+$(MAKE) -C chess
+	+$(MAKE) -C tests
+    
 clean:
-	 rm chess.o chess
+	 rm ${BUILD_DIR}/*
+
+run: 
+	./${OUT}
