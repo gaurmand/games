@@ -1,39 +1,10 @@
+#pragma once
 #include <vector>
+#include <map>
+#include <cstdint>
+#include "chesspieceset.h"
 
 namespace bg{
-
-enum ChessPieceType {EMPTY, PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING};
-enum Player {BLACK, WHITE, NONE};
-
-struct ChessPiece{
-  ChessPieceType type;
-  Player player;
-};
-
-struct Position{
-  int x;
-  int y;
-};
-
-struct ChessMove{
-  ChessPiece piece;
-  Position from;
-  Position to;
-};
-
-class ChessBoardPosition{
-  public:
-    ChessBoardPosition();
-    ChessBoardPosition(ChessPiece piece);
-    ChessBoardPosition(ChessPieceType pieceType, Player player);
-    inline bool isEmpty() {return empty;}
-    inline ChessPiece getPiece() {return piece;}
-    inline ChessPieceType getPieceType() {return piece.type;}
-
-  private:
-    bool empty;
-    ChessPiece piece;
-};
 
 class Chess{
   public:
@@ -68,20 +39,23 @@ class Chess{
     Player getCurrPlayer();
 
   private:
-    static const int NUM_ROWS = 8;
-    static const int NUM_COLUMNS = 8;
+    static const uint32_t NUM_ROWS = 8;
+    static const uint32_t NUM_COLUMNS = 8;
     
     //Stores the current state of the chess board
-    ChessBoardPosition board[NUM_ROWS][NUM_COLUMNS];
+    ChessPiece* board[NUM_ROWS][NUM_COLUMNS];
 
     //The player who's turn it is
     Player currentPlayer;
     
     //The current turn number
     int currentTurn;
+
+    //Player sets
+		ChessPieceSet chessSet;
     
     //Sets the board state to the initial state
-    void initializeBoardState();
+    void initializeBoard();
 };
 
 } //namespace board_games
