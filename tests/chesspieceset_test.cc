@@ -46,7 +46,7 @@ void assertValidPiece(ChessPiece* piece, Player player, ChessPieceType type, Pos
 namespace {
 
 void test1(){
-  //tests ChessPieceSet.getChessPiece(Player player, uint32_t pieceIndex)
+  //tests default constructor and ChessPieceSet.getChessPiece(Player player, uint32_t pieceIndex)
   ChessPieceSet chessSet;
   ChessPieces pieces;
   std::vector<Player> players{BLACK, WHITE};
@@ -136,12 +136,13 @@ void test3(){
 }//unnamed namespace
 
 void chessPieceTest(){
-  std::cout << "Chess piece test starting" << std::endl;
+  std::cout << "ChessPiece test starting" << std::endl;
   test1();
   std::cout << "Test 1 complete" << std::endl;
   test2();
   std::cout << "Test 2 complete" << std::endl;
   test3();  
   std::cout << "Test 3 complete" << std::endl;
-  std::cout << "Chess piece test complete" << std::endl;
+  std::cout << "ChessPiece test complete" << std::endl;
+  std::cout << "------------------------------" << std::endl;
 }

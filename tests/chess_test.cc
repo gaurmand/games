@@ -2,16 +2,20 @@
 #include <cassert>
 #include "../chess/chess.h"
 extern void chessPieceTest();
-void test1();
+extern void chessboardTest();
+
+//void test1();
 
 int main(){
-  test1();
+  //test1();
+  bg::Chess test;
   chessPieceTest();
+  chessboardTest();
   return 0;
 }
 
-void test1(){
-  bg::Chess test;
-  test.printBoard();
-  std::cout << "Test 1 complete" << std::endl;
-}
+// void test1(){
+//   bg::Chess test;
+//   test.printBoard();
+//   std::cout << "Test 1 complete" << std::endl;
+// }
