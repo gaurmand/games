@@ -1,6 +1,6 @@
 TEST_DIR = ../tests
 BUILD_DIR = ../build
-OBJS = chess.o chesspieceset.o
+OBJS = chess.o chesspieceset.o chessboard.o
 
 all: ${OBJS}
 

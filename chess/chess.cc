@@ -4,9 +4,7 @@
 
 namespace bg{
 //Chess
-Chess::Chess() : currentTurn(0), currentPlayer(WHITE){
-  initializeBoard();
-}
+Chess::Chess() : currentTurn(0), currentPlayer(WHITE), chessBoard(&chessSet){}
 
 void Chess::printBoard(){
   std::cout << "Chess board:\n" << std::endl;
@@ -87,26 +85,6 @@ Player Chess::getNextPlayer(){
 Player Chess::getCurrPlayer(){
   //TODO
   return currentPlayer;
-}
-
-void Chess::initializeBoard(){
-  std::cout << "Initializing board state" <<std::endl;
-  for(uint32_t i=0; i<NUM_COLUMNS; i++){
-	  board[0][i] = chessSet.getChessPiece(BLACK, i);
-    board[1][i] = chessSet.getChessPiece(BLACK, 8+i);
-  }
-
-  for(uint32_t i=0; i<NUM_COLUMNS; i++){
-	  board[7][i] = chessSet.getChessPiece(WHITE, i);
-    board[6][i] = chessSet.getChessPiece(WHITE, 8+i);
-  }
-
-  //empty board squares
-  for(uint32_t i=2; i<6; i++){
-    for(uint32_t j=0; j<NUM_COLUMNS; j++){
-      board[i][j] = nullptr;
-    }
-  }
 }
 
 } //namespace board_games

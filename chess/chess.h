@@ -3,6 +3,7 @@
 #include <map>
 #include <cstdint>
 #include "chesspieceset.h"
+#include "chessboard.h"
 
 namespace bg{
 
@@ -51,11 +52,11 @@ class Chess{
     //The current turn number
     int currentTurn;
 
-    //Player sets
+    //Stores each player's chess pieces
 		ChessPieceSet chessSet;
-    
-    //Sets the board state to the initial state
-    void initializeBoard();
+
+    //Represents the chessboard
+		ChessBoard chessBoard;
 };
 
 } //namespace board_games

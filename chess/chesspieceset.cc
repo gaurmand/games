@@ -37,11 +37,10 @@ ChessPieceSet::ChessPieceSet(){
 }
 
 ChessPiece* ChessPieceSet::getChessPiece(Player player, uint32_t pieceIndex){
-  //returns the player's chess piece at the specified index
-  // if (pieceIndex >= 16){
-  //   std:: cout << "ERROR: getChessPiece() index too large" << std::endl;
-  //   return nullptr;
-  // }
+  if (pieceIndex >= 16){
+    std:: cout << "ERROR: getChessPiece() index too large" << std::endl;
+    return nullptr;
+  }
   switch(player){
     case BLACK:
       return &blackSet[pieceIndex];
