@@ -40,12 +40,6 @@ class Chess{
     Player getCurrPlayer();
 
   private:
-    static const uint32_t NUM_ROWS = 8;
-    static const uint32_t NUM_COLUMNS = 8;
-    
-    //Stores the current state of the chess board
-    ChessPiece* board[NUM_ROWS][NUM_COLUMNS];
-
     //The player who's turn it is
     Player currentPlayer;
     
