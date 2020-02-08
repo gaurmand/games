@@ -9,6 +9,7 @@ extern void chessboardTest();
 int main(){
   //test1();
   bg::Chess test;
+  test.printBoard();
   chessPieceTest();
   chessboardTest();
   return 0;

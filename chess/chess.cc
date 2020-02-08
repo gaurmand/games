@@ -8,9 +8,9 @@ Chess::Chess() : currentTurn(0), currentPlayer(WHITE), chessBoard(&chessSet){}
 
 void Chess::printBoard(){
   std::cout << "Chess board:\n" << std::endl;
-  for(uint32_t i=0; i<NUM_ROWS; i++){
-    for(uint32_t j=0; j<NUM_COLUMNS; j++){
-      ChessPiece* piece = board[i][j];
+  for(uint32_t i=0; i<ChessBoard::NUM_ROWS; i++){
+    for(uint32_t j=0; j<ChessBoard::NUM_COLUMNS; j++){
+      ChessPiece* piece = chessBoard.getPiece({i, j});
       if (piece == nullptr){
         std::cout << "[]";
         continue;
