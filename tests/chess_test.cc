@@ -1,22 +1,29 @@
 #include <iostream>
 #include <cassert>
 #include "../chess/chess.h"
-extern void chessPieceTest();
-extern void chessboardTest();
+#include "../chess/chesspieceset.h"
+#include "../chess/chessboard.h"
+using namespace bg;
 
-//void test1();
+namespace{
+  void test1(){
+    Chess chess;
+    chess.printBoard();
+  }
 
-int main(){
-  //test1();
-  bg::Chess test;
-  test.printBoard();
-  chessPieceTest();
-  chessboardTest();
-  return 0;
+  void test2(){
+    Chess chess;
+    chess.printBoard();
+    //chess.getMoveFromSting("e4 f5");
+  }
 }
 
-// void test1(){
-//   bg::Chess test;
-//   test.printBoard();
-//   std::cout << "Test 1 complete" << std::endl;
-// }
+void chessTest(){
+  std::cout << "Chess test starting" << std::endl;
+  test1();
+  std::cout << "Test 1 complete" << std::endl;
+  test2();
+  std::cout << "Test 2 complete" << std::endl;
+  std::cout << "Chess test complete" << std::endl;
+  std::cout << "------------------------------" << std::endl;
+}
