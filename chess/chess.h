@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
-#include <map>
 #include <cstdint>
 #include "chesspieceset.h"
 #include "chessboard.h"
+#include "chessmove.h"
 
 namespace bg{
 
@@ -53,6 +53,6 @@ class Chess{
 		ChessBoard chessBoard;
 };
 
-} //namespace board_games
+} //namespace bg
 
 

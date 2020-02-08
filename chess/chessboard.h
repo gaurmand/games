@@ -48,4 +48,4 @@ class ChessBoard{
     ChessPiece* board[NUM_ROWS][NUM_COLUMNS];
 };
 
-}
+} //namespace bg
