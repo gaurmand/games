@@ -26,7 +26,9 @@ class ChessPieceSet{
     //@type: the type of chess piece to return
     //Returns a vector of ChessPieces
 		ChessPieces getPieces(Player player, ChessPieceType type);
+
   private:
+    //Number of pieces in a proper chess set
     static const uint32_t NUM_PIECES = 16;
 
     //Set of BLACK's 16 chess pieces

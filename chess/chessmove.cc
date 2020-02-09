@@ -9,7 +9,7 @@ namespace bg {
   ChessMove::ChessMove(ChessPiece* piece, Position to) : piece(piece), to(to) {}
 
   ChessMove::ChessMove(const char* moveStr, ChessBoard* chessBoard) {
-    if (!checkValidMoveString(moveStr)){
+    if (!isChessMoveString(moveStr)){
       //set empty chessmove
       piece = nullptr;
       to = {8,8};
@@ -26,7 +26,18 @@ namespace bg {
     to = {rankToRow[toRank], fileToCol[toFile]};
   }
 
-  bool ChessMove::checkValidMoveString(const char* moveStr){
+  ChessPiece* ChessMove::getPiece(){
+    return piece;
+  }
+  Position ChessMove::getTo(){
+    return to;
+  }
+
+  bool ChessMove::isValidMove(){
+    return piece != nullptr;
+  }
+
+  bool ChessMove::isChessMoveString(const char* moveStr){
     if (strlen(moveStr) != 5){
       std::cout << "Invalid move string (" <<  moveStr << "): wrong length" << std::endl;
       return false;
