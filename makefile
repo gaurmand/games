@@ -2,7 +2,7 @@ TEST_DIR = ./tests
 BUILD_DIR = ./build
 
 OUT = ${BUILD_DIR}/chess
-OBJS = $(addprefix ${BUILD_DIR}/, test.o chess.o chesspieceset.o chessboard.o chess_test.o chesspieceset_test.o chessboard_test.o)
+OBJS = $(addprefix ${BUILD_DIR}/, test.o chess.o chesspieceset.o chessboard.o chessmove.o chess_test.o chesspieceset_test.o chessboard_test.o chessmove_test.o)
 
 all: chess_test
 
