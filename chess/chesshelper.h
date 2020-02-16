@@ -4,13 +4,14 @@
 
 namespace bg{
 
-enum ChessPieceType {PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING};
-enum Player {BLACK, WHITE};
+enum ChessPieceType {PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING, EMPTY};
+enum Player {BLACK, WHITE, NONE};
 
 struct Position{
   uint32_t row;
   uint32_t col;
 };
+typedef std::vector<Position> Positions;
 
 struct ChessPiece{
   ChessPieceType type;

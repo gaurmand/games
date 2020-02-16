@@ -7,32 +7,39 @@ namespace bg{
 
 //ChessPieceSet
 ChessPieceSet::ChessPieceSet(){
-  //setup black set
-  blackSet[0] = ChessPiece({ROOK, BLACK, {0,0}});
-  blackSet[1] = ChessPiece({KNIGHT, BLACK, {0,1}});
-  blackSet[2] = ChessPiece({BISHOP, BLACK, {0,2}});
-  blackSet[3] = ChessPiece({QUEEN, BLACK, {0,3}});
-  blackSet[4] = ChessPiece({KING, BLACK, {0,4}});
-  blackSet[5] = ChessPiece({BISHOP, BLACK, {0,5}});
-  blackSet[6] = ChessPiece({KNIGHT, BLACK, {0,6}});
-  blackSet[7] = ChessPiece({ROOK, BLACK, {0,7}});
+  Positions blackPos(16, {9,9});
+  Positions whitePos(16, {9,9});
+  setPiecePositions(&blackPos, &whitePos);
+}
 
-  for(uint32_t i=8; i<16; i++){
-    blackSet[i] = ChessPiece({PAWN, BLACK, {1,i-8}});
+ChessPieceSet::ChessPieceSet(Positions* blackPos, Positions* whitePos){
+  setPiecePositions(blackPos, whitePos);
+}
+
+bool ChessPieceSet::setPiecePositions(Positions* blackPos, Positions* whitePos){
+  setPiecePositions(BLACK, blackPos);
+  setPiecePositions(WHITE, whitePos);
+}
+
+bool ChessPieceSet::setPiecePositions(Player player, Positions* positions) {
+  Positions& pos = *positions;
+  if(pos.size() < 16){
+    std::cout << "Positions array needs contain at least 16 positions" << std::endl;
+    return false;
   }
 
-  //set up white set
-  whiteSet[0] = ChessPiece({ROOK, WHITE, {7,0}});
-  whiteSet[1] = ChessPiece({KNIGHT, WHITE, {7,1}});
-  whiteSet[2] = ChessPiece({BISHOP, WHITE, {7,2}});
-  whiteSet[3] = ChessPiece({QUEEN, WHITE, {7,3}});
-  whiteSet[4] = ChessPiece({KING, WHITE, {7,4}});
-  whiteSet[5] = ChessPiece({BISHOP, WHITE, {7,5}});
-  whiteSet[6] = ChessPiece({KNIGHT, WHITE, {7,6}});
-  whiteSet[7] = ChessPiece({ROOK, WHITE, {7,7}});
+  ChessPiece* playerSet = getPlayerSet(player);
+  playerSet[0] = ChessPiece({ROOK, player, pos[0]});
+  playerSet[1] = ChessPiece({KNIGHT, player, pos[1]});
+  playerSet[2] = ChessPiece({BISHOP, player, pos[2]});
+  playerSet[3] = ChessPiece({QUEEN, player, pos[3]});
+  playerSet[4] = ChessPiece({KING, player, pos[4]});
+  playerSet[5] = ChessPiece({BISHOP, player, pos[5]});
+  playerSet[6] = ChessPiece({KNIGHT, player, pos[6]});
+  playerSet[7] = ChessPiece({ROOK, player, pos[7]});
 
   for(uint32_t i=8; i<16; i++){
-    whiteSet[i] = ChessPiece({PAWN, WHITE, {6,i-8}});
+    playerSet[i] = ChessPiece({PAWN, player, pos[i]});
   }
 }
 
@@ -41,65 +48,66 @@ ChessPiece* ChessPieceSet::getChessPiece(Player player, uint32_t pieceIndex){
     std:: cout << "ERROR: getChessPiece() index too large" << std::endl;
     return nullptr;
   }
-  switch(player){
-    case BLACK:
-      return &blackSet[pieceIndex];
-    case WHITE:
-      return &whiteSet[pieceIndex];
-    default:
-      std:: cout << "ERROR: getChessPiece()" << std::endl;
-      return nullptr;
-  }
+
+  return &getPlayerSet(player)[pieceIndex];
 }
 
-bool pushFreePiece(ChessPieces* pieces, ChessPiece* piece){
-    if(!piece->isCaptured){
-        pieces->push_back(piece);
-        return true;
+bool ChessPieceSet::pushPiece(ChessPieces* pieces, ChessPiece* piece, bool filterCaptured){
+    if (!filterCaptured || !piece->isCaptured) {
+      pieces->push_back(piece);
+      return true;
     }
     return false;
 }
 
-ChessPieces ChessPieceSet::getPieces(Player player){
+ChessPieces ChessPieceSet::getPieces(Player player, bool filterCaptured){
   //push the player's non capture chess pieces into a vector
   ChessPieces res;
   for(uint32_t i=0; i<16; i++){
-    pushFreePiece(&res, this->getChessPiece(player, i));
+    pushPiece(&res, getChessPiece(player, i), filterCaptured);
   }
   return res;
 }
 
-ChessPieces ChessPieceSet::getPieces(Player player, ChessPieceType type){
+ChessPieces ChessPieceSet::getPieces(Player player, ChessPieceType type, bool filterCaptured){
   //push the player's non captured pieces of the specified type into a vector
   ChessPieces res;
   switch(type){
     case PAWN:
       for(uint32_t i=8; i<16; i++){
-        pushFreePiece(&res, this->getChessPiece(player, i));
+        pushPiece(&res, getChessPiece(player, i), filterCaptured);
       }
       break;
     case ROOK:
-      pushFreePiece(&res, this->getChessPiece(player, 0));
-      pushFreePiece(&res, this->getChessPiece(player, 7));
+      pushPiece(&res, getChessPiece(player, 0), filterCaptured);
+      pushPiece(&res, getChessPiece(player, 7), filterCaptured);
       break;
     case KNIGHT:
-      pushFreePiece(&res, this->getChessPiece(player, 1));
-      pushFreePiece(&res, this->getChessPiece(player, 6));
+      pushPiece(&res, getChessPiece(player, 1), filterCaptured);
+      pushPiece(&res, getChessPiece(player, 6), filterCaptured);
       break;
     case BISHOP:
-      pushFreePiece(&res, this->getChessPiece(player, 2));
-      pushFreePiece(&res, this->getChessPiece(player, 5));
+      pushPiece(&res, getChessPiece(player, 2), filterCaptured);
+      pushPiece(&res, getChessPiece(player, 5), filterCaptured);
       break;
     case QUEEN:
-      pushFreePiece(&res, this->getChessPiece(player, 3));
+      pushPiece(&res, getChessPiece(player, 3), filterCaptured);
       break;
     case KING:
-      pushFreePiece(&res, this->getChessPiece(player, 4));
+      pushPiece(&res, getChessPiece(player, 4), filterCaptured);
       break;
     default:
       std:: cout << "ERROR: getPieces()" << std::endl;
   }
   return res;
+}
+
+ChessPiece* ChessPieceSet::getPlayerSet(Player player) {
+  if (player == BLACK){
+    return blackSet;
+  } else {
+    return whiteSet;
+  }
 }
 
 }//namespace board_games

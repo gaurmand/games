@@ -11,9 +11,9 @@ extern void chessMoveTest();
 extern void chessTest();
 
 int main(){
-  chessTest();
+  //chessTest();
   chessPieceTest();
-  chessboardTest();
-  chessMoveTest();
+  //chessboardTest();
+  //chessMoveTest();
   return 0;
 }
