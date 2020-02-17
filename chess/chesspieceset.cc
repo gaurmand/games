@@ -17,8 +17,7 @@ ChessPieceSet::ChessPieceSet(Positions* blackPos, Positions* whitePos){
 }
 
 bool ChessPieceSet::setPiecePositions(Positions* blackPos, Positions* whitePos){
-  setPiecePositions(BLACK, blackPos);
-  setPiecePositions(WHITE, whitePos);
+  return setPiecePositions(BLACK, blackPos) && setPiecePositions(WHITE, whitePos);
 }
 
 bool ChessPieceSet::setPiecePositions(Player player, Positions* positions) {
@@ -41,6 +40,7 @@ bool ChessPieceSet::setPiecePositions(Player player, Positions* positions) {
   for(uint32_t i=8; i<16; i++){
     playerSet[i] = ChessPiece({PAWN, player, pos[i]});
   }
+  return true;
 }
 
 ChessPiece* ChessPieceSet::getChessPiece(Player player, uint32_t pieceIndex){
